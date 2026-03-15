@@ -3,14 +3,12 @@ import {
   BarChart3, 
   Target, 
   BookOpen, 
-  Users, 
-  FileText, 
+  Users,  
   Award,
   TrendingUp,
   Code,
   MessageSquare,
   Lightbulb,
-  Calendar,
   ExternalLink,
   Download,
   Star,
@@ -22,7 +20,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
 // ← point this at the same n8n webhook you posted to from the form
-const API_URL = '/webhook/career-copilot';
+//const API_URL = "https://satyasreejay.app.n8n.cloud/webhook-test/career-copilot";
 
 interface AnalysisResults {
   match_score: number;
@@ -83,7 +81,7 @@ useEffect(() => {
       const payload = Array.isArray(raw) ? raw[0] : raw;
 
       // Normalize match_score: fraction -> percentage, or use as-is (cap at 100)
-      let rawMatch = payload['match_score '] ?? payload.match_score ?? 0;
+      const rawMatch = payload['match_score '] ?? payload.match_score ?? 0;
       let matchPct = rawMatch <= 1 ? rawMatch * 100 : rawMatch;
       matchPct = Math.min(Math.round(matchPct), 100);
 

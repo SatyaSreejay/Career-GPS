@@ -7,11 +7,10 @@ import {
   Clock, 
   ArrowRight,
   CheckCircle,
-  AlertCircle,
   Loader2
 } from 'lucide-react';
 
-const WEBHOOK_URL = '/webhook/career-copilot';
+const WEBHOOK_URL = "https://satyasreejay.app.n8n.cloud/webhook-test/career-copilot";
 
 interface FormData {
   email: string;
@@ -101,19 +100,7 @@ const AnalysisForm: React.FC = () => {
       }
 
       // Safely parse JSON or fallback
-      const text = await response.text();
-      let data: any;
-      if (text) {
-        try {
-          data = JSON.parse(text);
-        } catch (parseErr) {
-          console.warn('Response JSON parse error, falling back to form data', parseErr);
-          data = { stored: true, ...JSON.parse(localStorage.getItem('analysisData') || '{}') };
-        }
-      } else {
-        console.warn('Empty response from server, using stored form data');
-        data = { stored: true, ...JSON.parse(localStorage.getItem('analysisData') || '{}') };
-      }
+      const data = await response.json();
 
       // store result for dashboard
       localStorage.setItem('analysisResults', JSON.stringify(data));
